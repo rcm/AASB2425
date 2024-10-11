@@ -61,5 +61,30 @@ def codon_to_amino(codons):
         res += table[codon]
     return res
 
+def get_prots(amino):
+    inside_prot = False
+    prots = []
+    prot = ''
+
+    for aa in amino:
+        if aa == 'M':
+            inside_prot = True
+
+        if aa == '_':
+            if inside_prot:
+                prots.append(prot + '_')
+
+            inside_prot = False
+            prot = ''
+
+        if inside_prot:
+            prot += aa
+    return prots
+
+
+
 if __name__ == '__main__':
-    print("BOOOO!!!!")
+    amino = 'UUU_AAMYY_GGGGM_XXXMRTM_OOO_MARRECO'
+    print(amino)
+    get_prots(amino)
+
