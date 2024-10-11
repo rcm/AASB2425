@@ -3,7 +3,6 @@ import unittest
 from code import revcomp, get_codons, codon_to_amino, get_prots
 
 class TestRevComp(unittest.TestCase):
-
     def test__empty_string(self):
         self.assertEqual("", revcomp(""))
     def test_one_char(self):
@@ -13,6 +12,8 @@ class TestRevComp(unittest.TestCase):
         self.assertEqual("C", revcomp("G"), "failed to convert G")
     def test_general_case(self):
         self.assertEqual("TACGGTAT", revcomp("ATACCGTA"))
+
+class TestOtherFunctions(unittest.TestCase):
     def test_get_codons(self):
         tests = [
                 dict(
@@ -35,16 +36,14 @@ class TestRevComp(unittest.TestCase):
             comment = test['comment']
             self.assertEqual(get_codons(dna), expected, comment)
 
-
-
     def test_codon_to_amino(self):
         tests = [
                 [[], '', 'empty string'],
-                ['ATA CAA'.split(), 'IQ','string'],
-                ['ATA CAC CAA'.split(), 'IHQ','string'],
+                ['ATA CAA'.split(), 'IQ'],
+                ['ATA CAC CAA'.split(), 'IHQ'],
                 ]
-        for codons, amino, comment in tests:
-            self.assertEqual(codon_to_amino(codons), amino, comment)
+        for codons, amino, *comment in tests:
+            self.assertEqual(codon_to_amino(codons), amino, *comment)
 
     def test_get_prots(self):
         amino = "FD_MJKFDBJMDFLKFD_SKGMKLJDSLK_LJGFMDSK_LG_FDM_KLMYYY"
