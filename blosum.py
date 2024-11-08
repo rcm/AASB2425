@@ -1,4 +1,6 @@
-tabela = """
+class Blosum62:
+    def __init__(self):
+        tabela = """
    A  R  N  D  C  Q  E  G  H  I  L  K  M  F  P  S  T  W  Y  V  B  Z  X  -
 A  4 -1 -2 -2  0 -1 -1  0 -2 -1 -1 -1 -1 -2 -1  1  0 -3 -2  0 -2 -1  0 -4
 R -1  5  0 -2 -3  1  0 -2  0 -3 -2  2 -1 -3 -2 -1 -1 -3 -2 -3 -1  0 -1 -4
@@ -26,19 +28,17 @@ X  0 -1 -1 -1 -2 -1 -1 -1 -1 -1 -1 -1 -1 -1 -2  0  0 -2 -1 -1 -1 -1 -1 -4
 - -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4 -4  1
 """
 
-tabela = [T.split() for T in tabela.splitlines() if T]
+        tabela = [T.split() for T in tabela.splitlines() if T]
 
-headers, *resto = tabela
+        headers, *resto = tabela
 
-from collections import defaultdict
-tab = defaultdict(dict)
-for linha in resto:
-    aa, *lst = linha
-    for header, score in zip(headers, lst):
-        tab[aa][header] = int(score)
+        from collections import defaultdict
+        tab = defaultdict(dict)
+        for linha in resto:
+            aa, *lst = linha
+            for header, score in zip(headers, lst):
+                tab[aa][header] = int(score)
+        self.tab = tab
 
-
-blosum62 = tab
-
-
-
+    def subst(self, x, y):
+        return self.tab[x][y]
